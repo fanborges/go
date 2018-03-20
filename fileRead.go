@@ -6,17 +6,104 @@ import (
 	"strings"
 )
 
-func main() {
-	arrCampos := DevuelveCampos("GLI961030TU5_ACO0510202G0_AAA_196067230_20180212093727.txt")
-	for i := 0; i < len(arrCampos); i++ {
-		if !strings.Contains(arrCampos[i], "[") {
-			fmt.Printf("%s\n", arrCampos[i])
+type H1F struct {
+	version           string
+	serie             string
+	folio             string
+	fecha             string
+	formaPago         string
+	condicionesDePago string
+	subTotal          string
+	descuento         string
+	moneda            string
+	tipoCambio        string
+	total             string
+	tipoDeComprobante string
+	metodoDePago      string
+	lugarDeExpedicion string
+	confirmacion      string
+	sello             string
+	certificado       string
+}
 
+func main() {
+
+	//~ Ejemplo: lee el directorio actual e imprime el slice con todos los nombres de
+	//~ archivos
+	//~ c, _ := ListFiles("./")
+	//~ fmt.Printf("%v",c)
+
+	cuentaEncabezados := 0
+	arrCampos := DevuelveCampos("GLI961030TU5_ACO0510202G0_AAA_196067230_20180212093727.txt")
+
+	for i := 0; i < len(arrCampos); i++ {
+		if strings.Contains(arrCampos[i], "[") {
+			cuentaEncabezados++
 		}
+	}
+
+	count := 0
+	//~ fmt.Printf("%d", cuentaEncabezados)
+
+	//~ creamos un arreglo de 17 elementos para la cabecera H1F
+	var arrH1F [17]string
+	for i := 0; i < len(arrCampos); i++ {
+		if strings.Contains(arrCampos[i], "[") {
+			campo := arrCampos[i]
+			if strings.Contains(campo, "H1F_Comprobante") {
+				//~ fmt.Printf("%s\n", campo)
+				for j := i + 1; j < (i + 17); j++ {
+					arrH1F[count] = arrCampos[j]
+					//~ fmt.Printf("%s\n", arrH1F[count])
+					count++
+				}
+			}
+			//~ fmt.Printf("%s\n", arrCampos[i])
+			campo = ""
+		}
+	}
+
+	mH1F := mapH1F(arrH1F)
+	fmt.Printf("%+v", mH1F)
+
+	for key, value := range mH1F {
+		fmt.Println("key:", key, "value:", value)
 	}
 }
 
-//~ Toma el nombre de un archivo de factura y devuelve sus valores en un arreglo
+//~ toma un arreglo de strings con los campos de la cabecera H1F y devuelve un map
+//~ key value con sus respectivos valores
+func mapH1F(cadena [17]string) map[string]string {
+	//~ Mapa para cabecera H1F
+	mH1F := map[string]string{
+		"version":           "",
+		"serie":             "",
+		"folio":             "",
+		"fecha":             "",
+		"formaPago":         "",
+		"condicionesDePago": "",
+		"subTotal":          "",
+		"descuento":         "",
+		"moneda":            "",
+		"tipoCambio":        "",
+		"total":             "",
+		"tipoDeComprobante": "",
+		"metodoDePago":      "",
+		"lugarDeExpedicion": "",
+		"confirmacion":      "",
+		"sello":             "",
+		"certificado":       "",
+	}
+	contador := 0
+	//~ Vamos a iterar el map que creamos para la cabecera H1F
+	for key := range mH1F {
+		mH1F[key] = cadena[contador]
+		contador++
+	}
+	return mH1F
+}
+
+//~ Toma el nombre de un archivo de factura y devuelve sus campos en un arreglo
 func DevuelveCampos(fileName string) []string {
 	archivo, _ := ReadFile(fileName)
 	contador := 0
