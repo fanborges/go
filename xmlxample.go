@@ -10,6 +10,12 @@ import (
 
 func main() {
 
+	type H1c struct {
+		XMLName xml.Name `xml:"cfdi:ejemplo"`
+		NumeroOrdenDeCompra string `xml:"orden"`		
+		
+	}
+
 	type Comprobante struct {
 		XMLName           xml.Name `xml:"cfdi:comprobante"`
 		Version           string   `xml:"version,attr"`
@@ -30,6 +36,7 @@ func main() {
 		Sello             string   `xml:"sello,attr"`
 		Certificado       string   `xml:"certificado,attr"`
 		//~ Hola string `xml:"hola>mundo>cruel"`
+		H1c
 
 	}
 
@@ -40,6 +47,7 @@ func main() {
 	//~ Creamos el xml y lo agregamos al buffer de bytes
 	h := &Comprobante{Version: "3.3", Serie: "AAA", Folio: "196067230"}
 	//~ enc := xml.NewEncoder(os.Stdout) <- doc example
+	h.H1c = H1c{NumeroOrdenDeCompra: "hola mundo"}
 	enc := xml.NewEncoder(w)
 	enc.Indent("", "  ")
 	if err := enc.Encode(h); err != nil {
