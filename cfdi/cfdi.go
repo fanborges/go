@@ -12,20 +12,19 @@ func GetH1F(cadena []string) [17]string {
 		if strings.Contains(cadena[i], "[") {
 			campo := cadena[i]
 			if strings.Contains(campo, "H1F_Comprobante") {
-				//~ fmt.Printf("%s\n", campo)
 				for j := i + 1; j < (i + 17); j++ {
 					arrH1F[count] = cadena[j]
-					//~ fmt.Printf("%s\n", arrH1F[count])
 					count++
 				}
 			}
-			//~ fmt.Printf("%s\n", arrCampos[i])
 			campo = ""
 		}
 	}	
 	return arrH1F
 }
 
+//~ Toma un slice con los campos de la factura y devuelve otro
+//~ slice con los encabezados.
 func GetEncabezados(cadena []string) []string{
 	var slice_encabezados [] string
 		for i := 0; i < len(cadena); i++ {
@@ -33,5 +32,5 @@ func GetEncabezados(cadena []string) []string{
 			slice_encabezados = append(slice_encabezados,cadena[i])
 		}	
 	}
-	return slice_encabezados	
+	return slice_encabezados
 }

@@ -35,14 +35,13 @@ func ReadFile(f string) (string, error) {
 	buffer := make([]byte, 100)
 	for n, e := file.Read(buffer); e == nil; n, e = file.Read(buffer) {
 		if n > 0 {
-			//~ os.Stdout.Write(buffer[0:n])
 			contenido += string(buffer[0:n])
 		}
 	}
 	return contenido, err
 }
 
-//~ Toma el nombre de un archivo de factura y devuelve sus campos en un arreglo
+//~ Toma el nombre de un archivo de factura y devuelve sus campos en un slice
 //~ Llama a ReadFile
 func GetFields(fileName string) []string {
 	archivo, _ := ReadFile(fileName)
