@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"./fileread"
 )
 
 type H1F struct {
@@ -32,6 +33,10 @@ func main() {
 	//~ archivos
 	//~ c, _ := ListFiles("./")
 	//~ fmt.Printf("%v",c)
+	
+	slArchivos,_ := fileread.ListFiles("./")
+	fmt.Printf("%+v",slArchivos)
+	
 
 	cuentaEncabezados := 0
 	arrCampos := DevuelveCampos("GLI961030TU5_ACO0510202G0_AAA_196067230_20180212093727.txt")
