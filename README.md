@@ -7,6 +7,7 @@ Useful articles, books, links and resources to learn and improve on the Go progr
   - [Articles](#articles)
   - [Tutorials](#tutorials)
   - [Books](#books)
+  - [Samples](#samples)
 
 ## Documentation
 
@@ -27,3 +28,14 @@ Useful articles, books, links and resources to learn and improve on the Go progr
 - [Books in this Repo](/Books)
 - [Go Bootcamp](http://www.golangbootcamp.com/book)
 - [Practical Cryptography With Go](https://leanpub.com/gocrypto/read)
+
+## Samples
+
+- [Chat](/Samples/chat/)
+- [File Reading](/Samples/fileread/)
+- [File Extract](/Samples/filextract/)
+- [Hello World](/Samples/hello/)
+- [Hello World API](/Samples/helloapi/)
+- [Login](/Samples/login/)
+- [Map XML](/Samples/mapxml/)
+- [XML Example](/Samples/xmlxample/)
